@@ -3,6 +3,7 @@ package com.example.maps;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
@@ -19,7 +20,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
@@ -71,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Setting latitude and longitude for the marker
         markerOptions.position(point);
+
 
         // Adding marker on the Google Map
         mMap.addMarker(markerOptions);
@@ -179,6 +184,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onMapClick(LatLng point) {
+
+                Intent intent = new Intent(MapsActivity.this, Campo.class);
+                startActivity(intent);
+
+
+
                 // Drawing marker on the map
                 drawMarker(point);
 
@@ -206,32 +217,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener()
-        {
-            @Override
-            public void onMapLongClick(LatLng point)
-            {
-
-                // Removing all markers from the Google Map
-                mMap.clear();
-
-                // Creating an instance of LocationDeleteTask
-                LocationDeleteTask deleteTask = new LocationDeleteTask();
-
-                // Deleting all the rows from SQLite database table
-                deleteTask.execute();
-
-                Toast.makeText(getBaseContext(), "All markers are removed", Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        LatLng rostov = new LatLng(47.23135, 39.72328);
-        /*mMap.addMarker(new MarkerOptions().position(rostov).title("Rostov-on-Don").icon(
-                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)
-                )
-        );*/
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rostov, 14.f));
+//        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener()
+//        {
+//            @Override
+//            public void onMapLongClick(LatLng point)
+//            {
+//
+//                // Removing all markers from the Google Map
+//                mMap.clear();
+//
+//                // Creating an instance of LocationDeleteTask
+//                LocationDeleteTask deleteTask = new LocationDeleteTask();
+//
+//                // Deleting all the rows from SQLite database table
+//                deleteTask.execute();
+//
+//                Toast.makeText(getBaseContext(), "All markers are removed", Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//
+//        LatLng rostov = new LatLng(47.23135, 39.72328);
+//        /*mMap.addMarker(new MarkerOptions().position(rostov).title("Rostov-on-Don").icon(
+//                        BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)
+//                )
+//        );*/
+//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rostov, 14.f));
     }
 
 
