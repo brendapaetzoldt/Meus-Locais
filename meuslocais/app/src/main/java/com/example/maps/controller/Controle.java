@@ -12,7 +12,7 @@ import com.example.maps.db.PontosDB;
 
 public class Controle extends ContentProvider {
 
-    public static final String PROVIDER_NAME = "com.example.android.myplaces.locations";
+    public static final String PROVIDER_NAME = "com.example.android.maps.locations";
 
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER_NAME + "/locations" );
